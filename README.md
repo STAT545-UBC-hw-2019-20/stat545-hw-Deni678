@@ -14,9 +14,9 @@ I am currently enrolled in the following courses:
 * BIOL509
 
 ## About the Repository
-This repository contains the homework assignments for the STAT545A course taught at UBC during the 2019 - 2020 academic year.
+This repository contains the homework assignments for  STAT545A - a Data Analysis course- taught at UBC during the 2019 - 2020 academic year.
 
 ## How to Use the repository
 
-The repository contains a separate folder for each homework assignment. In total, there will be seven assignemnts.
+The repository contains a separate folder for each homework assignment. In total, there will be seven assignments.
 

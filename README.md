@@ -13,7 +13,7 @@ This repository contains the author (Denitsa)'s homework assignments for  STAT54
 The repository contains a separate folder for each homework assignment. In total, there will be seven assignments.
 To get the contents of this repository on your local computer you can use the following command in the terminal:
 ```bash
-function () { return "git clone "}
+git clone
 ```
 ## About the author
 My name is Denitsa and I am a student in the graduate [Bioinformatics graduate program](http://www.bioinformatics.ubc.ca) at UBC under the supervision of [Dr. Denise Daley](https://www.hli.ubc.ca/profile/daley/denise). Previously, I did my Bachelor's degree at the University of Toronto.

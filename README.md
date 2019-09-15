@@ -6,7 +6,7 @@ In this document you will find the following information:
 3. About the Author
 
 ## About the Repository
-This repository contains the author (Denitsa)'s homework assignments for  STAT545A - a Data Analysis course- taught at UBC during the 2019 - 2020 academic year. The README.md file for this repository will be updated as the course progresses and future assignments are added to the repository. 
+This repository contains the author's homework assignments for  STAT545A - a Data Analysis course- taught at UBC during the 2019 - 2020 academic year. The README.md file for this repository will be updated as the course progresses and future assignments are added to the repository. 
 
 ## Navigating the repository
 

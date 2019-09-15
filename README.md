@@ -1,5 +1,5 @@
 # STAT545 Homework Repository :sparkles:
-__Hello! Welcome to my git repository!__
+__Hello! Welcome to my git repository!__ <br>
 In this document you will find the following information:
 1. About the Repsoitory
 2. Navigating the Repository

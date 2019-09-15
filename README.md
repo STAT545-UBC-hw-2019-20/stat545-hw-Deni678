@@ -15,7 +15,7 @@ To  clone the contents of this repository to your local computer you can use the
 ```bash
 git clone https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-Deni678.git
 ```
-Currently, the repository only contains this README.md file and the files for (Assignment #1) [https://stat545.stat.ubc.ca/evaluation/hw01/hw01/].
+Currently, the repository only contains this README.md file and the files for [Assignment #1] (https://stat545.stat.ubc.ca/evaluation/hw01/hw01/).
 
 ## About the author
 My name is Denitsa and I am a student in the graduate [Bioinformatics graduate program](http://www.bioinformatics.ubc.ca) at UBC under the supervision of [Dr. Denise Daley](https://www.hli.ubc.ca/profile/daley/denise). Previously, I did my Bachelor's degree at the University of Toronto.

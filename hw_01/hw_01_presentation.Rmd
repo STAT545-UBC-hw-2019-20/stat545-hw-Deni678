@@ -2,7 +2,9 @@
 title: "Gapminder Data Set Exploration"
 author: "Denitsa Vasileva"
 date: '2019-09-14'
-output: ioslides_presentation
+output:
+  beamer_presentation: default
+  ioslides_presentation: default
 ---
 
 ## What is the gapminder data set?
@@ -31,7 +33,7 @@ print (num_countries)
 
 ## Exploring the gapminder data set: What was the country with the lowest GDP per capita overall?
 
-```{r}
+```{r,results="hide"}
 min_GDP_country <- data.frame(gapminder
 [gapminder$gdpPercap==min (gapminder$gdpPercap),])
 print (min_GDP_country )
@@ -55,8 +57,10 @@ To find the lowest GDP per capita in every year use the following code:
 df_min_GDP_year <- data.frame()
 years <- unique(gapminder$year)
 for (year in years){
-  new_df<-data.frame(gapminder[gapminder$year==year,])
-  x<-new_df[(new_df$gdpPercap==min(new_df$gdpPercap)),]
+  new_df<-data.frame(gapminder
+                     [gapminder$year==year,])
+  x<-new_df[(new_df$gdpPercap==
+               min(new_df$gdpPercap)),]
   df_min_GDP_year<-rbind(df_min_GDP_year,x )
 }
 print(df_min_GDP_year)
@@ -71,8 +75,10 @@ To find the highest GDP per capita in every year use the following code:
 df_max_GDP_year <- data.frame()
 years<- unique(gapminder$year)
 for (year in years){
-  new_df<-data.frame(gapminder[gapminder$year==year,])
-  x<-new_df[(new_df$gdpPercap==max(new_df$gdpPercap)),]
+  new_df<-data.frame(gapminder
+                     [gapminder$year==year,])
+  x<-new_df[(new_df$gdpPercap==max
+             (new_df$gdpPercap)),]
   df_max_GDP_year<-rbind(df_max_GDP_year,x )
 }
 print(df_max_GDP_year)

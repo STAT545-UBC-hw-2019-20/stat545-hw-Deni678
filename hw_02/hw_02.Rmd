@@ -1,7 +1,9 @@
 ---
 title: 'Gapminder Data ranging: Homework 2'
 date: '2019-09-22'
-output: html_document
+output: 
+       html_document:
+                    keep_md: true
 ---
 # Setting Up
 Loading needed Packages

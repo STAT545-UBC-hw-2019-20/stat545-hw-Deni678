@@ -153,7 +153,7 @@ It returns only half the entries needed.
 It skips every second entry for Rwanda and every first for Afghanistan.
 This is because the filter function was looking for Rwanda and Afghanistan together and not first for all the entries of Rwanda and then all the entries of Afghanistan
 That is, it recycles the c("Rwanda","Afghanistan") vector. 
-It looks for Rwanda, then Afghanistan, then Rwanda and so on.Rather than for Rwanda or Afghanistan.
+It looks for Rwanda, then Afghanistan, then Rwanda and so on, rather than for Rwanda or Afghanistan.
 
 Corrected Version:
 

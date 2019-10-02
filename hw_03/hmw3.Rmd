@@ -1,9 +1,11 @@
 ---
 title: 'Homework 3: Gapminder exploration with dplyr and ggplot'
 date: '2019-09-29'
-output: 
+output:
   html_document:
-    toc:true
+    toc: true
+
+
 
 ---
 
@@ -14,45 +16,21 @@ library(ggplot2)
 library(DT)
 ```
 
-# Task #1: Abundance of Low Life Expectancy
-
-Using the median as a measure of life expectancy
-```{r}
-gapminder %>%
-  summarize(meadianLifeExp=median(lifeExp))
-```
-The median life expectancy is 60.7125.
-Now we need to find the number of countries per continent 
-with a life expectancy lower than median for every year.
-
-## Tibble 
-
-```{r}
-lowerLifeExp<- gapminder %>%
-  group_by(year,continent) %>%
-  filter(lifeExp<60.7125) %>%
-  summarize(CountriesWithLifeExpectancyLessThanMedian=n())
-  DT::datatable(lowerLifeExp)
-```
-
-## Graphing # of countries with lower than median life expectancy per continent per year
-```{r}
-lowerLifeExp %>%
-  ggplot(aes(year, CountriesWithLifeExpectancyLessThanMedian, group=continent,colour=continent)) + geom_point()+ggtitle("Countries with Lower than Median Life Expectancy Per Continent Over Time")+scale_color_discrete("Continent")+xlab("Year") +ylab("# of Countries with Life Expectancy below Median")
-```
-
-## Explanation
-
-The table shows the number of countries per continent per year  with life expectancy below the median for the gapminder dataset.
-The graph is a scatter plot of the number of countries with life expectancy below the gapminder median life expectancy pet year per continent. As can be seen, for all continents, the # of countries with lower than median life expectancy decreases over time. Initially (in 1950) Europe is the continent with the least # of countries with life expectancy less than the median. The Americas and Asia experience a severe drop in the number of countries with life expectancy less than the median.
-Africa experiences a drop but in the 21st century there is a  period of stagnation and 
-even an increase as the downward trend in number of countries with lower life expectancy starts to reverse.
 
 # Task #2
+## Tibble and Graph
 
-## Tibble of Maximum and Minimum GDP per capita per Continent
+<style type="text/css">
+.twoC {width: 100%}
+.clearer {clear: both}
+.twoC .table {max-width: 50%; float: right}
+.twoC img {max-width: 50%; float: left}
+</style>
 
-```{r}
+
+
+<div class="twoC">
+```{r, echo=FALSE}
 minmaxGDP<-gapminder %>%
   group_by(continent) %>%
   summarize(max_GDP=max(gdpPercap),min_GDP=min(gdpPercap))
@@ -60,12 +38,13 @@ knitr::kable(minmaxGDP)
 ```
 
 
-## Box Plot of GDP Per Capita Per Continent
-```{r}
+
+```{r,echo=FALSE}
 gapminder %>%
   ggplot(aes(continent,gdpPercap,colour=continent))+geom_boxplot(alpha=0.5)+ggtitle("Boxplot of GDP per Capita per Continent") + xlab("Continent")+ ylab("GDP Per Capita")+ scale_y_continuous(labels = scales::dollar_format())+scale_color_discrete("Continent")
 ```
-
+</div>
+<div class="clearer"></div>
 ## Explanation
 
 The tibble is a tabular representation of the minimum and maximum GDP per Capita for each continent in the gapminder dataset.
@@ -83,20 +62,42 @@ gapminder %>%
   knitr::kable()
 ```
 
-## Graphing the Spread of the GDP Per Capita Per Continent
+## Histogram of Spread of the GDP Per Capita Per Continent
 ```{r}
 ggplot(gapminder, aes(gdpPercap))+facet_wrap(~ continent, nrow=4, scales="free_y") +
   geom_histogram(bins = 50)+ggtitle("Histograms of GDP Per Capita Per Continent ") + xlab("GDP Per Capita")+scale_x_continuous(labels=scales::dollar_format())+ylab("Frequency")
 ```
+
 ## Density Diagram of the GDP Per Capita Per Continent
+
 ```{r}
 ggplot(gapminder, aes(gdpPercap))+facet_wrap(~ continent, nrow=4, scales="free_y") +
-  geom_density(bins = 50)+ggtitle("Histograms of GDP Per Capita Per Continent ") + xlab("GDP Per Capita")+scale_x_continuous(labels=scales::dollar_format())+ylab("Frequency")
+  geom_density()+ggtitle("Density Diagram of GDP Per Capita Per Continent ") + xlab("GDP Per Capita")+scale_x_continuous(labels=scales::dollar_format())+ylab("Frequency")
 ```
 
 ## Explanation
 
 The tibble shows the mean and the Standard Deviation of the GDP per Capita for each continent.
-The histograms show the spread of the GDP per Capita values for each continent. From the histograms we can see that Asia has the largest spread of GDP per capita values while Africa has the smallest spread. In addition, we can see that the values for Africa are left-skewed Asia has a significant right-tail.The values for the Americas also have a right-tail. 
+The histograms show the spread of the GDP per Capita values for each continent. From the histograms we can see that Asia has the largest spread of GDP per capita values while Africa has the smallest spread. In addition, we can see that the values for Africa are left-skewed. Asia has a significant right-tail as do the Americas meaning that their distribution is skewed to the right.
 The density diagram complements the histogram by better demonstrating the shape of distribution of the data. For example, density plots allow to more easily determine whether the data follows a normal distribution or is skewed.
 
+# Task #4
+## Tibble of Weighted (by population) Mean Life Expectancy per year
+```{r}
+min_life_exp<-gapminder %>%
+  group_by(year)%>%
+  summarise( 
+            lifeExp_weighted_mean = weighted.mean(lifeExp,pop)) 
+  knitr::kable(min_life_exp)
+```
+
+## Bar Graph of Weighted (by population) Mean Life Expectancy per year
+
+```{r}
+min_life_exp %>%
+ggplot(aes(x=year,y=lifeExp_weighted_mean))+geom_col()+xlab("Year")+ylab("Weighted Mean Life Expectancy")+ ggtitle("Weighted Mean Life Expetancy Per Year")
+
+```
+
+## Explanation
+The tibble shows the mean life expectancy per year when weighted by population. The bar graph shows that the trend is towards an increase in the mean weighted life expectancy over the years of the gapminder data set.

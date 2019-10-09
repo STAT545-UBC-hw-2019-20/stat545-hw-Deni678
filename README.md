@@ -20,7 +20,7 @@ Currently, the repository only contains this README.md file and the files for [A
 For  a quick link to the html output generated in Assignment #3 click [here](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-Deni678/hw_03/hmw3.html). <br>
 If you would like to see the R markdown code for Assignment #3 navigate to folder __hmw_03__ and open the file entitled __hwm3.Rmd__.
 
-The Assignment #4 html output file can be found [here](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-Deni678/hw_04/hw-04.html)
+The Assignment #4 html output file can be found [here](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-Deni678/hw_04/hw_04.html).
 
 ## About the author
 I am a student in the graduate [Bioinformatics graduate program](http://www.bioinformatics.ubc.ca) at UBC under the supervision of [Dr. Denise Daley](https://www.hli.ubc.ca/profile/daley/denise). Previously, I did my Bachelor's degree at the University of Toronto.

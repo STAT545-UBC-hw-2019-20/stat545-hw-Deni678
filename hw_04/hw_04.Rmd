@@ -1,0 +1,105 @@
+---
+title: "Assignment 4"
+date: '2019-10-06'
+output: html_document
+---
+
+## Setting up Environment
+
+```{r, results="hide",message=FALSE,warnings=FALSE}
+library(gapminder)
+library(tidyverse)
+library (tidyr)
+library(DT)
+```
+
+# Task 1- Option 1
+
+## Widening the data - Life Expectancy in Canada and Germany
+```{r}
+# Selecting the necessary columns from gapminder
+gapminderYearLEW<-gapminder %>%
+  select(year,country,lifeExp) %>%
+  # Filtering to the country of interest
+  filter(country== "Canada" | country== "Germany") %>%
+  # Pivoting the data to wider format
+  pivot_wider(id_cols= year,
+              names_from=country,
+              values_from= lifeExp) 
+knitr::kable(gapminderYearLEW)
+```
+
+## Graphing scatter plot of life expctancy for Canada vs Germany
+
+```{r}
+gapminderYearLEW %>%
+  ggplot(aes(Canada, Germany,colour= year))+geom_point() + xlab("Life Expectancy in Canada")+
+  ylab("Life Expectancy in Germany") + ggtitle("Life Expectancy in Canada vs Germany")
+```
+
+## Re-lengthening the data
+```{r}
+# Re-lengthening the data and arrange so that it the data is in descending order
+# by country
+gapminderYearLEL<-gapminderYearLEW %>%
+  pivot_longer(cols=-year,
+               names_to= "country",
+               values_to= "Life Expectancy")%>%
+  arrange(country)
+DT::datatable(gapminderYearLEL)
+
+```
+
+# Task 2- Option 1
+
+## Widening the data- Life Expectancy and GDP per Capita for Canada and Australia
+
+```{r}
+gapminderLEGDPW<-gapminder %>%
+  # Selecting the columns of interest
+  select(year,country,lifeExp,gdpPercap)%>%
+  # Filtering to the countries of interest
+  filter(country=='Canada' | country== 'Australia')%>%
+  # Widening the data
+  pivot_wider(id_cols=c(year),names_from=country,values_from=c(lifeExp,gdpPercap) )
+knitr::kable(gapminderLEGDPW)
+```
+
+## Relengthening the Data
+```{r}
+gapminderLEGDPL<-gapminderLEGDPW %>%
+  pivot_longer(cols=-year,names_to=c(".value","country"), names_sep="_")
+
+```
+
+# Task 3
+
+## Loading the guest and email files 
+
+```{r, results="hide", message=FALSE, warning=FALSE}
+guest <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+
+```
+
+##3.1
+
+```{r}
+# Standardizing names in email dataframe to make join easier
+colnames(email) <- c("name", "email")
+email<-separate_rows(email,name,sep=",",convert=TRUE)
+# Removing leding and trailing white spaces
+email$name<-trimws(email$name)
+guest_with_email<-left_join(guest,email,by="name")
+```
+
+## 3.2
+```{r}
+not_invited<-anti_join(email,guest,by="name")
+```
+
+## 3.3
+```{r}
+all_emails<-full_join(guest,email,by="name")
+```
+

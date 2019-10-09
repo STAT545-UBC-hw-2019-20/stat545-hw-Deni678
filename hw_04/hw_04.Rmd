@@ -29,7 +29,7 @@ gapminderYearLEW<-gapminder %>%
 knitr::kable(gapminderYearLEW)
 ```
 
-## Graphing scatter plot of life expctancy for Canada vs Germany
+## Graphing scatter plot of life expectancy for Canada vs Germany
 
 ```{r}
 gapminderYearLEW %>%
@@ -85,12 +85,13 @@ email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/maste
 ##3.1
 
 ```{r}
-# Standardizing names in email dataframe to make join easier
-colnames(email) <- c("name", "email")
-email<-separate_rows(email,name,sep=",",convert=TRUE)
-# Removing leding and trailing white spaces
-email$name<-trimws(email$name)
-guest_with_email<-left_join(guest,email,by="name")
+email<-email %>%
+  # Standardizing names in email dataframe to make join easier
+  rename("name"="guest") %>%
+  separate_rows(name,sep=",",convert=TRUE) %>%
+  # Removing leding and trailing white spaces
+  mutate(name=str_trim(name, side = "both"))
+guest_list_emails<-left_join(guest,email,by="name")
 ```
 
 ## 3.2

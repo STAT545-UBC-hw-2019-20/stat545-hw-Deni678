@@ -147,7 +147,7 @@ gapminderGrouped$continent %>%
   # converting the continent variable into a factor
   as_factor() %>%
   # ordering levels based on fre2uency 
-  fct_inorder() %>%
+  fct_infreq() %>%
   # Reverses order of frequency
   fct_rev() %>%
   levels()

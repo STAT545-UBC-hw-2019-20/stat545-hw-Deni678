@@ -1,5 +1,5 @@
 ---
-title: "hw05"
+title: "Homework #5"
 author: "Denitsa Vasileva"
 date: '2019-10-17'
 output: html_document
@@ -192,8 +192,8 @@ It did not grab attention or emphasize a trend in the data.
 # Task 5
 ## Saving an image
 ```{r}
-ggsave(here::here("hw_05","new_plot.png"), width=2,height=2)
+ggsave(here::here("hw_05","new_plot_1.png"), width=2,height=2,scale=2)
 ```
 
 ## Embedding an image
-![**Figure 1. New Graph of Weighted Mean Life Expectancy per Year**](./new_plot.png)
+![**Figure 1. New Graph of Weighted Mean Life Expectancy per Year**](./hw_05/new_plot_1.png)

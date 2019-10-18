@@ -152,8 +152,17 @@ gapminderGrouped$continent %>%
   fct_rev() %>%
   levels()
   
-
 ```
+However, this only reorders the factor continent and not the whole imported data.
+
+In order to order all of the data (not just the continent factor as abive) we have to use arrange()
+```{r}
+gapminderGrouped %>%
+  # arranges imported data by reverse (i.e.from lowest to highest ) frequency of continent 
+  arrange(fct_rev(fct_infreq(continent))) %>%
+  DT::datatable()
+```
+
 # Task 4
 <style type="text/css">
 .twoC {width: 100%}

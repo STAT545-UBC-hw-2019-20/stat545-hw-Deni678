@@ -6,4 +6,4 @@ The Rmarkdown file for Assignment 5 can be found in the file __hw_05.Rmd__.
 
 The embedded image for Assignment 5 can be found below:
 
-![plot](./hw_05/new_plot_1.png)
+![plot](./new_plot_1.png)

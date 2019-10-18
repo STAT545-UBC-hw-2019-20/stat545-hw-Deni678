@@ -1,0 +1,199 @@
+---
+title: "hw05"
+author: "Denitsa Vasileva"
+date: '2019-10-17'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setting up the Environment
+
+
+```{r, warning=FALSE, results="hide", message=FALSE}
+library(gapminder)
+library(tidyverse)
+library(here)
+library(forcats)
+library(ggplot2)
+```
+
+
+#Task #1
+
+## The Value of the here Package
+Frequently, the function setwd() is used in R scripts to set the script's working directory while rm(list=ls()) is used to remove any variables from the environment.
+However, the here package provides a more convenient and reliable way to specify directories. 
+First, using here allows for greater reproducibility of analysis. When using setwd() in your scripts, another user would have to reproduce the exact sub-directory structure of your files in order to be able
+to run your script. However, using the here package eliminates the need for this. Instead,
+the here package sets the root directory for your project and manipulates the paths within it. It is important to note here that the here package creates paths in a way that is not dependent on your machine's operating system (e.g. macOS vs Windows).
+In addition, the here package allows for easier management of subdirectories. For example, it allows us to save the output of a script  in a sub-directory different from the script's own directory. 
+Moreover, even if you have stored your scripts in an Rproject the here package allows them to 
+run outside of their R project.
+Finally, the here package contains other useful functionalities such as set_here() which tags a directory as the root and dir_here() which  explain why the function picked that particular directory as the working directory.
+
+#Task #2
+
+Dataset of choice- gapminder
+Variable of choice- Life Expectancy
+
+##Dropping Oceania and Unused Factor Levels
+```{r}
+# Filtering out records with continent Oceania 
+gapminderDroppedLevels<-gapminder %>%
+  filter(continent != "Oceania") %>%
+  #Dropping unused levels
+  droplevels() 
+```
+
+## Number of Rows before Dropping Oceania and Unused Factor Levels
+```{r}
+gapminder %>%
+  # number of rows in the gapminder dataset
+  count()
+```
+
+## Number of Rows after Dropping Oceania and Unused Factor Levels 
+```{r}
+gapminderDroppedLevels %>%
+  # number of rows after the dropping of the Oceania level
+  count()
+```
+
+## Number of factor levels before Dropping Oceania and Unused Factor Levels
+
+```{r}
+gapminder$continent %>%
+  nlevels()
+gapminder$country %>%
+  nlevels()
+```
+
+## Number of factor levels after Dropping Oceania and Unused Factor Levels
+```{r}
+# Country and continent are the factors in the dataset hence they are affected 
+# by dropping Oceania
+gapminderDroppedLevels$continent %>%
+  nlevels()
+gapminderDroppedLevels$country %>%
+  nlevels() 
+```
+
+## Reordering the levels of factor continent
+
+### Levels of Factor continent Not Reordered
+
+```{r}
+gapminderDroppedLevels %>%
+  arrange(continent) %>%
+  DT::datatable()
+```
+
+```{r}
+gapminderDroppedLevels %>%
+  # plotting life expectancy summary data for each continent after dropping
+  # unused factor levels but before releveling the continent factor
+  ggplot() +
+  geom_boxplot(aes(y=lifeExp,x=continent)) +
+  theme_bw()+xlab("Continents") + ggtitle("Boxplot for Life Expectancy by Continent (not Reordered)")+ xlab("Continent")+ylab("Life Expectancy")
+```
+
+### Levels of Factor Continent Reordered by Minimum GDP Per Capita
+
+```{r}
+gapminderDroppedLevels %>%
+  arrange(fct_reorder(continent,gdpPercap,min)) %>%
+  DT::datatable()
+```
+
+
+```{r}
+gapminderDroppedLevels %>%
+  # plotting life expectancy summary data for each continent after dropping
+  # unused factor levels and after releveling the continent factor based on 
+  # minimum gdpPer cap
+  ggplot() +
+  geom_boxplot(aes(y=lifeExp,x=fct_reorder(continent,gdpPercap,min))) +
+  theme_bw()+xlab("Continents ordered based on Minimum GDP per Cap")+ggtitle("Boxplot of Life Expectancy Per Continent ordered by Minimum GDP Per Capita") +ylab("Life Expectancy")
+```
+
+# Task 3
+
+## Reading/Writing Data to Disk
+
+```{r, message=FALSE}
+gapminder %>%
+  select(continent,country,gdpPercap,year) %>%
+  filter(year==2007) %>%
+  group_by(continent) %>%
+  # writing the filtered tibble to .csv file
+  write_csv(here("hw_05","csv_continent_2007.csv"))
+class(gapminder$continent)
+class(gapminder$country)
+# reading the .csv file in
+gapminderGrouped<-read_csv(here("hw_05","csv_continent_2007.csv"))
+class(gapminderGrouped$continent)
+class(gapminderGrouped$country)
+```
+
+The data written into file by write_csv() had been converted from factor to character upon parsing. The function as_factor() was used to convert it back to factor.
+
+## Using Factors to Order Imported Data by Lowest to Highest Level Frequency
+
+```{r}
+gapminderGrouped$continent %>%
+  # converting the continent variable into a factor
+  as_factor() %>%
+  # ordering levels based on fre2uency 
+  fct_inorder() %>%
+  # Reverses order of frequency
+  fct_rev() %>%
+  levels()
+  
+
+```
+# Task 4
+<style type="text/css">
+.twoC {width: 100%}
+.clearer {clear: both}
+.twoC .table {max-width: 50%; float: right}
+.twoC img {max-width: 50%; float: left}
+</style>
+<div class="twoC">
+
+## Previous Graph vs New Graph
+
+```{r, echo=FALSE}
+
+min_life_exp<-gapminder %>%
+  group_by(year)%>%
+  summarise( 
+            lifeExp_weighted_mean = weighted.mean(lifeExp,pop)) 
+min_life_exp %>%
+ggplot(aes(x=year,y=lifeExp_weighted_mean))+geom_col()+xlab("Year")+ylab("Weighted Mean Life Expectancy")+ ggtitle("Weighted Mean Life Expetancy Per Year")
+
+min_life_exp %>%
+ggplot(aes(x=year,y=lifeExp_weighted_mean))+geom_point(color="red")+xlab("Year")+ylab("Weighted Mean Life Expectancy")+ ggtitle("Weighted Mean Life Expectancy Per Year") +theme_bw()+geom_smooth(method = "lm")
+
+```
+
+
+
+In the previous graph (on the left) the following principles of effective visualization had been broken:
+
+* Choose your scale carefully- due to the graph being a bar plot, the x axis did not clearly show the exact year for each life Expectancy data point. 
+* Maintaining high data-to-ink ratio- the background was unnecessary and distracting.
+* Choose type of graph wisely- bar plot was not as suited for graphically representing this relationship as a scatter plot does.
+* Choose colours wisely- the grey colour scheme colours on the previous graph was not visually appealing.
+It did not grab attention or emphasize a trend in the data.
+
+# Task 5
+## Saving an image
+```{r}
+ggsave(here::here("hw_05","new_plot.png"), width=2,height=2)
+```
+
+## Embedding an image
+![**Figure 1. New Graph of Weighted Mean Life Expectancy per Year**](./new_plot.png)

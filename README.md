@@ -22,6 +22,8 @@ If you would like to see the R markdown code for Assignment #3 navigate to folde
 
 The Assignment #4 html output file can be found [here](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-Deni678/hw_04/hw_04.html).
 
+The Assignment #5 html output file can be found [here](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-Deni678/hw_05/hw05.html).
+
 ## About the author
 I am a student in the graduate [Bioinformatics graduate program](http://www.bioinformatics.ubc.ca) at UBC under the supervision of [Dr. Denise Daley](https://www.hli.ubc.ca/profile/daley/denise). Previously, I did my Bachelor's degree at the University of Toronto.
 <br>In my spare time I like to run and read.</br>

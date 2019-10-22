@@ -34,4 +34,4 @@ I am currently enrolled in the following courses:
 
 ## Participation Repository
 
-A link to my Participation Repository can be found (here)[https://github.com/Deni678/STAT545-participation] 
+A link to my Participation Repository can be found [here](https://github.com/Deni678/STAT545-participation)

@@ -32,3 +32,6 @@ I am currently enrolled in the following courses:
 * BIOF501
 * BIOL509
 
+## Participation Repository
+
+A link to my Participation Repository can be found (here)[https://github.com/Deni678/STAT545-participation] 
